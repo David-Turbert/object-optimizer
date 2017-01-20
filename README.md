@@ -8,7 +8,7 @@ function optimizer(obj) {
   return new Proxy(obj, {
     get: function(target, name) {
       return hasKey(target, name) ?
-        (isObject(target[name]) ? safe(target[name]) : target[name]) : undefined;
+        (isObject(target[name]) ? optimizer(target[name]) : target[name]) : undefined;
     },
     set: function(target, key, value, receiver) {
       console.trace();
